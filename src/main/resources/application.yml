@@ -1,0 +1,75 @@
+server:
+  port: 7071
+#  ssl:
+#    key-store: classpath:keystore.p12
+#    key-store-password: 123456
+#    key-store-type: PKCS12
+#    key-alias: tomcat
+
+spring:
+  datasource:
+    name: springboot
+    type: com.alibaba.druid.pool.DruidDataSource
+    #druid\u76F8\u5173\u914D\u7F6E
+    druid:
+      #\u76D1\u63A7\u7EDF\u8BA1\u62E6\u622A\u7684filters
+      filter: stat
+      #mysql\u9A71\u52A8
+      driver-class-name: com.mysql.cj.jdbc.Driver # mysql 8.0
+      #\u57FA\u672C\u5C5E\u6027
+      url: jdbc:mysql://localhost:3306/vblog?useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT
+      username: root
+      password: 123456
+      #\u914D\u7F6E\u521D\u59CB\u5316\u5927\u5C0F/\u6700\u5C0F/\u6700\u5927
+      initial-size: 1
+      min-idle: 1
+      max-active: 20
+      #\u83B7\u53D6\u8FDE\u63A5\u7B49\u5F85\u8D85\u65F6\u65F6\u95F4
+      max-wait: 60000
+      #\u95F4\u9694\u591A\u4E45\u8FDB\u884C\u4E00\u6B21\u68C0\u6D4B\uFF0C\u68C0\u6D4B\u9700\u8981\u5173\u95ED\u7684\u7A7A\u95F2\u8FDE\u63A5
+      time-between-eviction-runs-millis: 60000
+
+  #thymeleaf\u6A21\u677F\u5F15\u64CE
+  thymeleaf:
+    prefix: classpath:/templates/
+    check-template-location: true
+    suffix: .html
+    encoding: UTF-8
+    mode: LEGACYHTML5
+    cache: false
+
+    #devtools\u63D2\u4EF6
+  devtools:
+    restart:
+      enabled: true #\u662F\u5426\u652F\u6301\u70ED\u90E8\u7F72
+
+    #\u6587\u4EF6\u4E0A\u4F20\u76F8\u5173\u8BBE\u7F6E
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 100MB
+
+#mybatis\u914D\u7F6E
+mybatis:
+  mapper-locations: classpath:mapper/**/*.xml
+  type-aliases-package: com.feizifeiyu.vblog.admin.entity
+  configuration:
+    map-underscore-to-camel-case: true
+
+#mybaatis\u5206\u9875\u63D2\u4EF6pagehelper\u8BBE\u7F6E
+pagehelper:
+  pagehelperDialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+
+# \u6253\u5370sql
+logging:
+  level:
+    com.vblog.admin.mapper: DEBUG
+
+# \u4E03\u725B\u4E91
+qiniu:
+  access_key: ACCESS_KEY
+  secret_key: SECRET_KEY
+  bucket_name: BUCKETNAME
+  url: http://xxx/
